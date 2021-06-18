@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据可视化</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="js/index.js"></script>
+    <script src="js/china.js"></script>
+</head>
+<body>
+    <header>
+        <span id="full" style="position: absolute;top:10%;left:1%">
+          <svg t="1598570881950" class="icon" viewBox="0 0 1081 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2056" width="32" height="32"><path d="M850.113 830.792H676.226v-38.641h173.887V666.566c-1.932-1.932-1.932-5.796-1.932-9.66 0-11.593 7.728-19.321 17.389-21.253s19.32 7.728 21.253 17.389v1.932h1.932v135.245c0 23.185-17.389 40.573-38.642 40.573z m36.71-444.377c0 11.593-7.729 19.32-17.389 21.253-11.592 0-19.32-7.728-21.253-17.389v-1.932c0-3.864 0-5.796 1.932-9.66V212.528H676.226v-38.641h173.887c21.253 0 38.642 17.388 38.642 38.641v173.887h-1.932z m-635.653 0c0 11.593-7.728 19.32-19.32 19.32s-19.322-7.727-19.322-19.32c0-3.864 0-5.796 1.932-9.66V212.528c0-21.253 17.39-38.641 38.642-38.641h154.566v38.641H251.17v173.887z m79.215 289.811V328.453c0-21.253 17.389-38.642 38.641-38.642H734.19c21.253 0 38.641 17.389 38.641 38.642v347.773c0 21.253-17.388 38.642-38.641 38.642H369.026c-21.252 0-38.641-17.389-38.641-38.642z m-98.536-38.641c11.593 0 19.32 7.728 19.32 19.32v135.246h156.499v38.641H253.102c-21.253 0-38.642-17.388-38.642-38.641V664.634c-1.932-1.932-1.932-5.796-1.932-7.728 0-11.593 7.729-19.321 19.321-19.321z" p-id="2057" fill="#cdcdcd"></path></svg>
+        </span>
+        <h1>招聘就业信息数据可视化</h1>
+        <div class="showtime">当前时间</div>
+
+    </header>
+    <!-- 主体 -->
+    <div class="mainbox">
+        <!-- 左边 -->
+        <div class="column">
+            <div class="panel bar">
+                <h2>部分城市就业行情比</h2>
+                <div class="chart"> </div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel line">
+                <h2>就业行情岗位走向
+                    <a href="javascript:;">2020</a>
+                    <a href="javascript:;">2021</a>
+                </h2>
+                <div class="chart"> </div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel pie">
+                <h2>就业年龄情况</h2>
+                <div class="chart"> </div>
+                <div class="panel-footer"></div>
+            </div>
+
+        </div>
+        <!-- 中间 -->
+        <div class="column">
+            <div class="no">
+                <div class="no-hd">
+                    <ul>
+                        <li>2542</li>
+                        <li>723424</li>
+                    </ul>
+                </div>
+                <div class="no-bd">
+                    <ul>
+                        <li>岗位需求人数</li>
+                        <li>市场供应人数</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 地图 -->
+            <div class="map">
+                <div class="map1"></div>
+                <div class="map2"></div>
+                <div class="map3"></div>
+                <div class="chart"></div>
+            </div>
+        </div>
+        <!-- 右边 -->
+        <div class="column">
+            <div class="panel bar2">
+                <h2>部分城市需求供应比</h2>
+                <div class="chart"> </div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel line2">
+                <h2>就业波动</h2>
+                <div class="chart"> </div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel pie2">
+                <h2>城市岗位需求</h2>
+                <div class="chart"> </div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/flexible.js"></script>
+    <script src="./js/echarts.min.js"></script>
+    <script src='./js/jquery.js'></script>
+    <script src='./js/china.js'></script>
+    <script src="./js/index.js"></script>
+    <script>
+        var t = null;
+        t = setTimeout(time, 1000); //開始运行
+        function time() {
+          clearTimeout(t); //清除定时器
+          dt = new Date();
+          var y = dt.getFullYear();
+          var mt = dt.getMonth() + 1;
+          var day = dt.getDate();
+          var h = dt.getHours(); //获取时
+          var m = dt.getMinutes(); //获取分
+          var s = dt.getSeconds(); //获取秒
+          document.querySelector(".showtime").innerHTML =
+            "当前时间：" +
+            y +
+            "年" +
+            mt +
+            "月" +
+            day +
+            "-" +
+            h +
+            "时" +
+            m +
+            "分" +
+            s +
+            "秒";
+          t = setTimeout(time, 1000); //设定定时器，循环运行
+        }
+        var full = document.querySelector('#full')
+        full.onclick = handleFullScreen
+        var fullscreen = false
+        //全屏
+         function handleFullScreen(){
+        let element = document.documentElement;
+        // 判断是否已经是全屏
+        // 如果是全屏，退出
+        if (fullscreen) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            console.log('已还原！');
+        } else {    // 否则，进入全屏
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.webkitRequestFullScreen) {
+                element.webkitRequestFullScreen();
+            } else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            } else if (element.msRequestFullscreen) {
+                // IE11
+                element.msRequestFullscreen();
+            }
+            console.log('已全屏！');
+        }
+        // 改变当前全屏状态
+        fullscreen = !fullscreen;
+    }
+
+    </script>
+
+
+    <script >
+
+    </script>
+</body>
+</html>
